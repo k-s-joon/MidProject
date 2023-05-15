@@ -1,0 +1,28 @@
+package after.service;
+
+import java.util.List;
+import java.util.Map;
+
+import after.vo.AfterVO;
+
+public interface IAfterService {
+	public int registAfter(AfterVO av);
+	
+	public boolean checkAfter(String memId);
+	
+	public AfterVO getMemId(String memId);
+	
+	public AfterVO getAfter(int afNo);
+	
+	public int modifyAfter(AfterVO av);
+	
+	public int removeAfter(String memId);
+	
+	
+	public List<AfterVO> listAllAfter();
+	
+	public List<AfterVO> searchAfter(AfterVO av);
+
+	public int removeAfter(int afNo);
+ 
+}

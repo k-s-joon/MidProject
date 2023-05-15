@@ -1,0 +1,75 @@
+package after.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import after.dao.AfterDaoImpl;
+import after.dao.IAfterDao;
+import after.vo.AfterVO;
+
+public class AfterServiceImpl implements IAfterService{
+
+
+	private IAfterDao afdao;
+	private static IAfterService afservice;
+	
+	private AfterServiceImpl() {
+		afdao = AfterDaoImpl.getInstance();
+	}
+	
+	public static IAfterService getInstance() {
+		if(afservice == null) {
+			afservice = new AfterServiceImpl();
+		}
+		return afservice;
+	}
+	
+	@Override
+	public int registAfter(AfterVO av) {
+		return afdao.insertAfter(av);
+	}
+
+	@Override
+	public boolean checkAfter(String memId) {
+		return afdao.checkAfter(memId);
+	}
+
+	@Override
+	public AfterVO getMemId(String memId) {
+		return afdao.getMemId(memId);
+	}
+
+	@Override
+	public int modifyAfter(AfterVO av) {
+		return afdao.updateAfter(av);
+	}
+
+	@Override
+	public int removeAfter(String memId) {
+		return afdao.deleteAfter(memId);
+	}
+
+	@Override
+	public List<AfterVO> listAllAfter() {
+		return afdao.selectAllAfterVOs();
+	}
+
+	@Override
+	public List<AfterVO> searchAfter(AfterVO av) {
+		return afdao.searchAfterVO(av);
+	}
+
+	@Override
+	public AfterVO getAfter(int aNo) {
+		return afdao.getAfter(aNo);
+	}
+
+	@Override
+	public int removeAfter(int aNo) {
+		return afdao.deleteAfter(aNo);
+	}
+
+
+
+}

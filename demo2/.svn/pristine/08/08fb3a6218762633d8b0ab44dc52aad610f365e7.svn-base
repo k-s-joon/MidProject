@@ -1,0 +1,88 @@
+<%@page import="member.vo.MemberVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	List<MemberVO> memList = (List<MemberVO>) request.getAttribute("memList");
+	MemberVO mv = (MemberVO) request.getAttribute("mv");
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function () {
+	$('.uptBtn').on('click',function () {
+		updateUser(this);
+	});
+});
+
+function updateUser(obj) {
+	
+	var memId = $(obj).closest('tr').find('input[name=memId]').val();
+	var memP = $(obj).closest('tr').find('select[name=memP]').val();
+	
+	$.ajax({
+		url : "/demo2/updatemanager",
+		type : 'post',
+		data : {
+			"memId" : memId,
+			"memP" : memP		
+		},
+		success : function(data) {
+			alert("success");
+	     },
+		error : function() {
+			alert("error");
+		}
+	});
+	
+}
+</script>
+</head>
+<body>
+	<div>
+<!-- 	<form action="updatemanager?memId=" method="post"> -->
+	<form action="updatemanager" method="post">
+		<table border="1">
+			<%
+				int memSize = memList.size();
+			if (memSize > 0) {
+				for (int i = 0; i < memSize; i++) {
+					if (memList.get(i).getMemP() != 1) {
+			%>
+			<tr>
+			<td><input type="text" value="<%=memList.get(i).getMemId()%>" name="memId"></td>
+				<td><%=memList.get(i).getMemId()%></td>
+				<td><%=memList.get(i).getMemNick()%></td>
+				<td><select name="memP">
+						<option value="<%=memList.get(i).getMemP()%>" selected>
+							<%
+								if (memList.get(i).getMemP() == 0) {
+							%> 일반회원
+							<%
+								} else if (memList.get(i).getMemP() == 2) {
+							%> 블랙리스트
+							<%
+								}
+							%>
+						</option>
+						<option value="0">일반회원</option>
+						<option value="2">블랙리스트</option>
+				</select></td>
+		<td><button class="uptBtn" type="button">변경</button></td>
+			</tr>
+			<%
+				}
+			}
+			}
+			%>
+		</table>
+	</form>
+	</div>
+</body>
+</html>

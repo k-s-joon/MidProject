@@ -1,0 +1,27 @@
+package free.service;
+
+import java.util.List;
+
+import free.vo.FComVO;
+
+public interface IFreeComService {
+
+	public int registFreeCom(FComVO fcv);
+	
+	public boolean checkFreeCom(String memId);
+	
+	public FComVO getMemId(String memId);
+	
+	public FComVO getFreeCom(int fNo);
+	
+	public int modifyFreeCom(FComVO fcv);
+	
+	public int removeFreeCom(String memId);
+	
+	
+	public List<FComVO> listAllFreeCom();
+	
+	public List<FComVO> searchFreeCom(FComVO fcv);
+
+	public int removeFreeCom(int fNo);
+}

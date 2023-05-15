@@ -1,0 +1,79 @@
+<%@page import="message.vo.MessageVO"%>
+<%@page import="java.util.List"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	List<MessageVO> msgSendList = (List<MessageVO>) request.getAttribute("msgSendList");
+
+String loginCode = session.getAttribute("memNick") == null ? "" : (String) session.getAttribute("memNick");
+// 	session.removeAttribute("msg");
+%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<jsp:include page="/sidemain.jsp"></jsp:include>
+<jsp:include page="/view/topbar.jsp"></jsp:include>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+<link rel="stylesheet" href="../css/sidemain.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/main.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/topbar.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보낸 쪽지함</title>
+<link rel="stylesheet" href="../css/css.css">
+</head>
+<body>
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>보낸 쪽지함</strong>
+		</div>
+		<div class="board_list_wrap">
+			<div class="board_list">
+				<div class="top">
+					<div class="">내용</div>
+					<div class="date">보낸날짜</div>
+					<div class="writer">수신자</div>
+					<div class="choose">선택</div>
+				</div>
+			</div>
+		</div>
+
+		<%
+			int messageSize = msgSendList.size();
+		if (messageSize > 0) {
+			for (int i = 0; i < messageSize; i++) {
+		%>
+		<div class="board_list">
+			<div>
+				<input type="hidden" class="msgNo" value="<%=msgSendList.get(i).getMsgNo()%>">
+				<div><%=msgSendList.get(i).getMsgCon()%></div>
+				<div><fmt:formatDate
+						value="<%=msgSendList.get(i).getMsgDate()%>" pattern="yyyy-MM-dd"
+						type="date" /></div>
+				<div><%=msgSendList.get(i).getReceiverNick()%></div>
+				<div><a href="#채팅창"><button>채팅하기</button></a>
+				<a href="<%=request.getContextPath()%>/message/delete.do?msgNo=<%=msgSendList.get(i).getMsgNo()%>"><button>삭제</button></a></div>
+			</div>
+		</div>
+		<%
+			}
+		} else {
+		%>
+		<tr>
+			<td colspan="5">보낸 쪽지가 없습니다.</td>
+		</tr>
+		<%
+			}
+		%>
+
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<!-- 	<script src="js/bototstrap.js"></script> -->
+</body>
+</html>

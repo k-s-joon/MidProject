@@ -1,0 +1,57 @@
+package free.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import free.service.FreeComServiceImpl;
+import free.service.FreeServiceImpl;
+import free.service.IFreeComService;
+import free.service.IFreeService;
+import free.vo.FComVO;
+import free.vo.FreeVO;
+
+@WebServlet("/free/detail.do")
+public class DetailFreeController extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		int fNo = Integer.parseInt(req.getParameter("fNo"));
+		
+		IFreeService freeService = FreeServiceImpl.getInstance();
+		
+		FreeVO fv = freeService.getFree(fNo);
+		System.out.println("fv"+fv);
+		
+		req.setAttribute("fv", fv);
+		req.setAttribute("fNo", fNo);
+		
+		
+		IFreeComService freecomService = FreeComServiceImpl.getinstance();
+		List<FComVO> fcv =  freecomService.getfreecomList(fNo);
+		
+		req.setAttribute("fcv", fcv);
+		req.setAttribute("fNo", fNo);
+		
+		
+		req.getRequestDispatcher("/f_boa/f_view.jsp").forward(req, resp);
+
+		
+		
+	}
+	
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doPost(req, resp);
+	}
+	
+}

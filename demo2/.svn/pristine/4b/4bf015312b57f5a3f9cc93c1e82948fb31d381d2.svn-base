@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%int memP = (int) session.getAttribute("memP"); %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/topbar.css">  
+<style>
+
+@font-face { /* 애플산돌고딕 폰트 적용 */
+  font-family:"jua";
+  src: url("../css/fonts/BMJUA_ttf.ttf") format("truetype");
+  font-weight: normal;
+	} /* 이후 "SDGothic"으로 폰트 적용 가능 */
+	
+	a{
+	font-family: 'jua';
+	
+	
+	}
+</style>
+</head>
+<body>
+
+<div class="sidebar-navigation" >
+		<%if(memP==0){ %>
+		<div class="logo">
+			<a href="../main.jsp"><img src="../img/logo.png" style="width: 150px; margin: 0px 50px;"></a>
+		</div>
+		<nav >		
+			<ul>
+				
+				<a href="../search.jsp"> <span class="rect"></span> </span> 인연 찾아보기
+				</a>
+				
+				<a href="../free/list.do"> <span class="rect"></span> </span>
+					자유 게시판
+				</a>
+							
+				<a href="../ask/list.do"> <span class="rect"></span> </span> 문의 게시판
+				</a>
+				
+				<a href="../notice/list.do"> <span class="rect"></span> </span> 공지사항
+				</a>
+				
+			</ul>
+	</nav>	
+	</div>
+	<div>
+		<%} else if(memP==1){ %>
+		<div class="logo">
+			<a href=""><img src="./img/logo.png" style="width: 150px; margin: 0px 50px;"></a>
+		</div>
+		<nav>		
+			<ul>
+				<a href="./free/list.do"> <span class="rect"></span> <span class="circle"></span>자유게시판</a>
+				
+				<a href="./ask/list.do"> <span class="rect"></span> <span class="circle"></span>문의게시판</a>
+			
+				<a href="./notice/list.do"> <span class="rect"></span> <span class="circle"></span>공지사항</a>
+			
+				<a href="./reportlist"> <span class="rect"></span> <span class="circle"></span>신고사항</a>
+			
+				<a href="./membermanager"> <span class="rect"></span> <span class="circle"></span>블랙 리스트</a>
+			</ul>
+	</nav>	
+		<%} %>
+	</div>
+
+</body>
+</html>

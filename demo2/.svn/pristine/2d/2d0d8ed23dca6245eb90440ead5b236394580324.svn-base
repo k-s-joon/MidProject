@@ -1,0 +1,219 @@
+<%@page import="member.vo.FileVO"%>
+<%@page import="member.service.FileServiceImpl"%>
+<%@page import="member.service.IFileService"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Random"%>
+<%@page import="java.util.List"%>
+<%@page import="member.service.MemberServiceImpl"%>
+<%@page import="member.service.IMemberService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="member.vo.MemberVO"%>    
+<%
+	String memId = (String) session.getAttribute("loginCode");
+	String memNick = (String) session.getAttribute("memNick");
+	Random random = new Random();
+	IMemberService memservice = MemberServiceImpl.getInstance();
+	IFileService fileservice = FileServiceImpl.getInstance();
+   	List<MemberVO> memList = memservice.selectAllMember();
+   	
+   	
+   	
+   	List<MemberVO> ranList = new ArrayList<>();
+   	
+   	int memSize = memList.size();
+   	while(ranList.size() < 6){
+   		
+   		int rndNum = random.nextInt(memSize);
+   		
+   	    MemberVO mv = memList.get(rndNum);
+   	    
+   	    if(!ranList.contains(mv) && !mv.getMemId().equals(memId)){
+   	    	ranList.add(mv);
+   	    }
+   	}
+   	
+   	FileVO fv1 = fileservice.getProfile(ranList.get(0).getMemId());
+   	FileVO fv2 = fileservice.getProfile(ranList.get(1).getMemId());
+   	FileVO fv3 = fileservice.getProfile(ranList.get(2).getMemId());
+   	FileVO fv4 = fileservice.getProfile(ranList.get(3).getMemId());
+   	FileVO fv5 = fileservice.getProfile(ranList.get(4).getMemId());
+   	FileVO fv6 = fileservice.getProfile(ranList.get(5).getMemId());
+   	
+%>   
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!---<title> Responsive Our Team Section | CodingLab </title> ---->
+    <link rel="stylesheet" href="css/main.css">
+    <jsp:include page="/sidemain.jsp"></jsp:include>
+    <jsp:include page="/topbar.jsp"></jsp:include>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    
+    
+    <style></style>
+    
+    
+   </head>
+<body>
+  <div class="container">
+    <input type="radio" name="dot" id="one">
+    <input type="radio" name="dot" id="two">
+    
+    <div id="ad">
+    	<video width="400px"  src="./img/틴더광고.mp4" controls qutoplay loop></video>
+    </div>
+    
+    <div class="main-card">
+      <div class="cards">
+        <div class="card">
+         <div class="content">
+           <div class="img">
+            <%if(fv1==null){ %>  <img src="./img/기본프로필.png"><%} else{  %>
+		<img src="<%=request.getContextPath()%>/download.do?fileSn=<%=fv1.getFileSn()%>&fileNo=<%=fv1.getFileNo()%>">
+		<%} %>
+           </div>
+           <div class="details">
+             <div class="name"><%=ranList.get(0).getMemName() %></div>
+             <div class="job"><%=ranList.get(0).getMemNick()%></div>
+           </div>
+          <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+         </div>
+        </div>
+        <div class="card">
+         <div class="content">
+           <div class="img">
+            <%if(fv2==null){ %>  <img src="./img/기본프로필.png"><%} else{  %>
+		<img src="<%=request.getContextPath()%>/download.do?fileSn=<%=fv2.getFileSn()%>&fileNo=<%=fv2.getFileNo()%>">
+		<%} %>
+           </div>
+           <div class="details">
+             <div class="name"><%=ranList.get(1).getMemName()%></div>
+             <div class="job"><%=ranList.get(1).getMemNick()%></div>
+           </div>
+          <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+         </div>
+        </div>
+        <div class="card">
+         <div class="content">
+           <div class="img">
+            <%if(fv3==null){ %>  <img src="./img/기본프로필.png"><%} else{  %>
+		<img src="<%=request.getContextPath()%>/download.do?fileSn=<%=fv3.getFileSn()%>&fileNo=<%=fv3.getFileNo()%>">
+		<%} %>
+           </div>
+           <div class="details">
+             <div class="name"><%=ranList.get(2).getMemName()%></div>
+             <div class="job"><%=ranList.get(2).getMemNick()%></div>
+           </div>
+          <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+         </div>
+        </div>
+      </div>
+      <div class="cards">
+        <div class="card">
+         <div class="content">
+           <div class="img">
+             <%if(fv4==null){ %>  <img src="./img/기본프로필.png"><%} else{  %>
+		<img src="<%=request.getContextPath()%>/download.do?fileSn=<%=fv4.getFileSn()%>&fileNo=<%=fv4.getFileNo()%>">
+		<%} %>
+           </div>
+           <div class="details">
+             <div class="name"><%=ranList.get(3).getMemName()%></div>
+             <div class="job"><%=ranList.get(3).getMemNick()%></div>
+           </div>
+           <button class="btn" data-toggle="modal" data-target="#myModal" onclick="f_modalclick">더 알아보기</button>
+         </div>
+        </div>
+        <div class="card">
+         <div class="content">
+           <div class="img">
+            <%if(fv5==null){ %>  <img src="./img/기본프로필.png"><%} else{  %>
+		<img src="<%=request.getContextPath()%>/download.do?fileSn=<%=fv5.getFileSn()%>&fileNo=<%=fv5.getFileNo()%>">
+		<%} %>
+           </div>
+           <div class="details">
+             <div class="name"><%=ranList.get(4).getMemName()%></div>
+             <div class="job"><%=ranList.get(4).getMemNick()%></div>
+           </div>
+          <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+         </div>
+        </div>
+        <div class="card">
+         <div class="content">
+           <div class="img">
+             <%if(fv6==null){ %>  <img src="./img/기본프로필.png"><%} else{  %>
+		<img src="<%=request.getContextPath()%>/download.do?fileSn=<%=fv6.getFileSn()%>&fileNo=<%=fv6.getFileNo()%>">
+		<%} %>
+           </div>
+           <div class="details">
+             <div class="name"><%=ranList.get(5).getMemName()%></div>
+             <div class="job"><%=ranList.get(5).getMemNick()%></div>
+              <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+           </div>
+           
+         </div>
+        </div>
+      </div>
+    </div>
+    <div class="button">
+      <label for="one" class="active one btn-danger"></label>
+      <label for="two" class="active two btn-primary"></label>
+    </div>
+    
+  </div>
+  	
+  	<script>
+  	function f_modalclick() {
+		$('')
+	}
+  	</script>
+  
+  	<!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      	
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4><span class="glyphicon glyphicon-user"></span>#about me</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+				 <body>
+		    <div class="slider">
+		    	
+		    	<div class="card" style=" height: 18rem; width: 18rem;">
+  				<img src="img/카리나1.jpg" style="width: 100% " class="card-img-top" alt="...">
+  				
+				</div>
+		  </body>
+		</html>		
+                <button type="submit" class="btn btn-block">쪽지보내기
+                  <a href="./chat/showchat.html"></a>
+                  <span class="glyphicon glyphicon-home"></span>
+                </button>
+                
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <p>Need <a href="#">help?</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

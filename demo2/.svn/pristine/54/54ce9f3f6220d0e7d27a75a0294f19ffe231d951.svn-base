@@ -1,0 +1,57 @@
+package after.vo;
+
+import java.util.Date;
+
+public class AfterVO {
+	private int afNo;
+	private String afTitle;
+	private String afCon;
+	private Date afDate;
+	private Date afUpdate;
+	private String afNick;
+	private String memId;
+	public int getafNo() {
+		return afNo;
+	}
+	public void setafNo(int afNo) {
+		this.afNo = afNo;
+	}
+	public String getafTitle() {
+		return afTitle;
+	}
+	public void setafTitle(String afTitle) {
+		this.afTitle = afTitle;
+	}
+	public String getafCon() {
+		return afCon;
+	}
+	public void setafCon(String afCon) {
+		this.afCon = afCon;
+	}
+	public Date getafDate() {
+		return afDate;
+	}
+	public void setafDate(Date afDate) {
+		this.afDate = afDate;
+	}
+	public Date getafUpdate() {
+		return afUpdate;
+	}
+	public void setafUpdate(Date afUpdate) {
+		this.afUpdate = afUpdate;
+	}
+	public String getafNick() {
+		return afNick;
+	}
+	public void setafNick(String afNick) {
+		this.afNick = afNick;
+	}
+	public String getMemId() {
+		return memId;
+	}
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
+	
+}

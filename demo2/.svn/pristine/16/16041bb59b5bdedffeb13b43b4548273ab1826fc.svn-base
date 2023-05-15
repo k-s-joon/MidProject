@@ -1,0 +1,120 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>main</title>
+ 	<link href="css/sidemain.css" rel="stylesheet"/>  
+    <link href="css/main.css" rel="stylesheet"/>
+    <link href="css/modal.css" rel="stylesheet"/>
+<!--     <link href="css/bootstrap.css" rel="stylesheet"/> -->
+<!--    <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+<!-- profile box -->
+<input type="checkbox" id="check">
+  <label for="check">
+<i class="fa fa-bars" id="btn"></i>
+<i class="fa fa-times" id="cancle"></i>
+  </label>
+
+
+<div class="sidebar">
+<header><img src="./img/백현.png">
+<p>
+<%
+
+%>
+</p>
+	<ul>
+    	<li><a href="Mypage"><i class="fa fa-qrcode"></i>마이페이지</a></li>
+    	<li><a href="#"><i class="fa fa-link"></i>Shortcuts</a></li>
+    	<li><a data-toggle="modal" href="#"  data-target="#modal"><i class="fa fa-eye"></i>보낸 쪽지함</a></li>
+    	<li><a data-toggle="modal" href="#"  data-target="#modal"><i class="fa fa-book" ></i>받은 쪽지함</a></li>
+    	<li><a href="#"><i class="fa fa-question-circle"></i>About</a></li>
+    	<li><a href="logout.jsp"><i class="fa fa-sliders"></i>로그아웃</a></li>
+    </ul> 
+    
+    
+    
+    
+    
+<!-- 모달창 -->
+
+<div class="modal fade" id="modal" role="dialog" >
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+		
+				닫기(x) 버튼
+				<button type="button" class="close" data-dismiss="modal">×</button>
+            	 받은 쪽지함
+ 				<h4 class="modal-title">쪽지 목록</h4> 
+			
+			 </div>
+						
+			<!-- body -->
+			<div class="modal-body">
+			<iframe src="http://localhost:8888/demo2/message/list.do" id="messageList_iframe" width="600px">대체 내용</iframe>
+			
+			</div>
+						
+			<!-- Footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- send모달창 -->
+
+<div class="modal fade" id="modal" role="dialog" >
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+		
+				닫기(x) 버튼
+				<button type="button" class="close" data-dismiss="modal">×</button>
+            	 보낸 쪽지함
+ 				<h4 class="modal-title">쪽지 목록</h4> 
+			
+			 </div>
+						
+			<!-- body -->
+			<div class="modal-body">
+			<iframe src="http://localhost:8888/demo2/message/Sendlist.do" id="messageList_iframe" width="600px">대체 내용</iframe>
+			
+			</div>
+						
+			<!-- Footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+    
+</div>
+
+
+
+
+</body>
+</html>
+  

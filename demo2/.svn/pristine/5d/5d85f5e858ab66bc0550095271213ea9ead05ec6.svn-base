@@ -1,0 +1,121 @@
+package member.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.logging.log4j.Logger;
+
+
+import member.service.FileServiceImpl;
+import member.service.IFileService;
+import member.service.IMemberService;
+import member.service.MemberServiceImpl;
+import member.vo.FileVO;
+import member.vo.MemberVO;
+
+/**
+ * Servlet implementation class Mypage
+ */
+@WebServlet("/MypageUpdate")
+public class MypageUpdate extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+      
+    
+    public MypageUpdate() {
+        
+    }
+    
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MemberVO mv = new MemberVO();
+		IMemberService service = MemberServiceImpl.getInstance();
+		String memId = (String) session.getAttribute("loginCode");
+		mv = service.getMember(memId);
+		
+		
+	request.setAttribute(	"memMail", mv.getMemMail());	
+	request.setAttribute(	"memAddr2",mv.getMemAddr());
+	request.setAttribute(	"memBir",mv.getMemBir());
+	request.setAttribute(	"memId",mv.getMemId());
+	request.setAttribute(	"memName",mv.getMemName());
+	request.setAttribute(	"memNick",mv.getMemNick());
+	request.setAttribute(	"memPw",mv.getMemPw());
+	request.setAttribute(	"memSex",mv.getMemSex());
+	request.setAttribute(	"memTel",mv.getMemTel());
+	request.setAttribute(	"memLike",mv.getMemLike());
+	request.setAttribute(	"memDislike",mv.getMemDislike());
+	request.setAttribute(	"memReligion",mv.getMemReligion());
+	request.setAttribute(	"memSmoking",mv.getMemSmoking());
+	request.setAttribute(	"memKey",mv.getMemKey());
+	request.setAttribute(	"memDrink",mv.getMemDrink());
+	request.setAttribute(	"memMbti",mv.getMemMbti());
+	request.setAttribute(	"memDrink",mv.getMemDrink());
+	
+	
+		
+		request.getRequestDispatcher("mypageupdate.jsp").forward(request, response);
+		
+		
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 HttpSession session = request.getSession();
+		 String memId = (String)session.getAttribute("loginCode");
+		
+		 
+		 IFileService fileService = FileServiceImpl.getInstance();
+			
+			//첨부파일 저장하기
+			FileVO atchFileVO = fileService.saveFileList(request,memId);
+			
+			request.setAttribute("FileVO", atchFileVO);
+			
+		request.setCharacterEncoding("UTF-8");
+		String memMail = request.getParameter("memMail");
+		String memNick = request.getParameter("memNick");
+		String memMbti= request.getParameter("memMbti");
+		String memLike= request.getParameter("memLike");
+		String memDislike= request.getParameter("memDislike");
+		String memReligion= request.getParameter("memReligion");
+		String memSmoking= request.getParameter("memSmoking");
+		String memKey= request.getParameter("memKey");
+		String memDrink= request.getParameter("memDrink");
+		
+		MemberVO mv = new MemberVO();
+		mv.setMemMail(memMail);
+		mv.setMemId(memId);
+		mv.setMemNick(memNick);
+		mv.setMemMbti(memMbti);
+		mv.setMemLike(memLike);
+		mv.setMemDislike(memDislike);
+		mv.setMemReligion(memReligion);
+		mv.setMemSmoking(memSmoking);
+		mv.setMemKey(memKey);
+		mv.setMemDrink(memDrink);
+								
+						
+		IMemberService service =  MemberServiceImpl.getInstance();
+		
+		int cnt = service.updateMember(mv);
+		
+		if(cnt>0) {
+			
+			request.setAttribute("updateCode", "yes");
+			request.getRequestDispatcher("Mypage").forward(request, response);
+			
+		}else {
+			request.setAttribute("updateCode", "no");
+			request.getRequestDispatcher("MypageUpdate").forward(request, response);
+		}
+		
+	}
+
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<!-- 이 영역에 sql문에 맞는 태그를 사용하여 SQL문을 기술한다. 사용할수 있는 기본적인 태그들 <select> ~~~ </select> 
+		<insert> ~~~ </insert> <update> ~~~ </update> <delete> ~~~ </delete> 위 태그에서 
+		사용되는 주요 속성들 1) id : 해당 태그를 호출할 때 namespace명과 연결하여 사용하는 아이디 2) parameterType 
+		: SQL문에 사용될 데이터가 들어있는 객체타입을 지정함. (보통 VO클래스, 자바의 자료형이름 등이 사용된다.) (typeAlias로 
+		지정한 alias명을 사용할 수 있다.) 3) resultType : select문을 실행한 결과를 담을 객체타입을 지정한다. (보통 
+		VO클래스, 자바의 자료형이름 등이 사용된다.) (typeAlias로 지정한 alias명을 사용할 수 있다.) 4) resultMap 
+		: 결과 레코드 컬럼명과 VO객체의 속성명이 다를 경우에 적절한 매핑을 위해 사용한다. -->
+
+<insert id="insertMember" parameterType="MVO">
+	insert into member
+	(mem_id, mem_pw, mem_tel, mem_name, mem_bir, mem_mail, mem_addr, mem_sex, mem_nick)
+	values (#{memId},#{memPw},#{memTel},#{memName},#{memBir},#{memMail},#{memAddr},#{memSex},#{memNick})
+</insert>
+
+
+<select id="checkMember" parameterType="map" resultType="string">
+			
+			 select mem_id from MEMBER 
+		where MEM_ID = #{memId}
+		and mem_pw = #{memPw}
+</select>
+
+<select id="getMember" parameterType="String" resultType="MVO">
+
+		select * from member
+		where mem_id = #{memId}
+
+</select>
+
+<update id="updateMember" parameterType="MVO" >
+	update member set mem_nick = #{memNick},
+					  mem_mbti = #{memMbti},
+					  mem_like = #{memLike},
+					  mem_dislike = #{memDislike},
+					  mem_religion = #{memReligion},
+					  mem_smoking = #{memSmoking},
+					  mem_key = #{memKey},
+					  mem_drink = #{memDrink}
+	where mem_id = #{memId}
+
+</update>
+
+<update id="updateMemberPw" parameterType="String" >
+	update member set mem_pw = #{memPw}
+					  
+	where mem_id = #{memId}
+
+</update>
+
+
+
+
+</mapper>

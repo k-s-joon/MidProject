@@ -1,0 +1,74 @@
+package after.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import after.service.AfterServiceImpl;
+import after.service.IAfterService;
+import after.vo.AfterVO;
+
+@WebServlet("/after/update.do")
+public class UpdateAfterController extends HttpServlet {
+
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		int afNo = Integer.parseInt(req.getParameter("afNo"));
+		
+		IAfterService afterService = AfterServiceImpl.getInstance();
+		
+		AfterVO av = afterService.getAfter(afNo);
+
+		req.setAttribute("av",av);
+		
+		req.getRequestDispatcher("/a_boa/a_update.jsp").forward(req, resp);
+	
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		System.out.println(">>");
+		int afNo = Integer.parseInt(req.getParameter("afNo"));
+		String afTitle = req.getParameter("afTitle");
+		String afCon = req.getParameter("afCon");
+	
+		IAfterService afterService = AfterServiceImpl.getInstance();
+		
+		AfterVO av = new AfterVO();
+		av.setafNo(afNo);
+		av.setafTitle(afTitle);
+		av.setafCon(afCon);
+		
+		int cnt = afterService.modifyAfter(av);
+		
+		String msg = "";
+		if(cnt > 0) {
+			msg = "성공";
+		}else {
+			msg = "실패";
+		}
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("msg", msg);
+		
+		resp.sendRedirect(req.getContextPath() + "/after/list.do");
+	
+		
+	}
+
+	
+	
+	
+}
+	
+	
+	
+

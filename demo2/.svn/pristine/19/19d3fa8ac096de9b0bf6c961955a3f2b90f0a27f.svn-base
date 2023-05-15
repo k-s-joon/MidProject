@@ -1,0 +1,69 @@
+package message.service;
+
+import java.util.List;
+
+import message.dao.IMessageDao;
+import message.dao.MessageDao;
+import message.vo.MessageVO;
+
+public class MessageService implements IMessageService{
+
+	private static IMessageService msgService;
+	
+	private IMessageDao msgDao;
+	
+	private MessageService() {
+		msgDao = MessageDao.getInstance();
+	}
+	
+	public static IMessageService getInstance() {
+		if(msgService == null) {
+			msgService = new MessageService();
+		}
+		return msgService;
+	}
+	
+	@Override
+	public int registMessage(MessageVO msgv) {
+		
+		return msgDao.insertMessage(msgv);
+	}
+
+	@Override
+	public boolean checkMessage(String receiverId) {
+		return msgDao.checkMessage(receiverId);
+	}
+
+	@Override
+	public int modifyMessage(MessageVO msgv) {
+		return msgDao.updateMessage(msgv);
+	}
+
+	@Override
+	public int removeMessage(String msgNo) {
+		return msgDao.deleteMessage(msgNo);
+	}
+
+	@Override
+	public List<MessageVO> listAllMessage() {
+		return msgDao.selectAllMessage();
+	}
+
+	@Override
+	public List<MessageVO> searchAllMessage(MessageVO msgv) {
+		return msgDao.searchMessage(msgv);
+	}
+	public List<MessageVO> searchSendAllMessage(MessageVO msgv) {
+		return msgDao.searchMessage(msgv);
+	}
+
+
+	@Override
+	public List<MessageVO> searchMessage(MessageVO msgv) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+}

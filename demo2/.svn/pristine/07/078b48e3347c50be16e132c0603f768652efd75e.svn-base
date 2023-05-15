@@ -1,0 +1,74 @@
+package free.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import free.service.FreeServiceImpl;
+import free.service.IFreeService;
+import free.vo.FreeVO;
+
+@WebServlet("/free/update.do")
+public class UpdateFreeController extends HttpServlet {
+
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		int fNo = Integer.parseInt(req.getParameter("fNo"));
+		
+		IFreeService freeService = FreeServiceImpl.getInstance();
+		
+		FreeVO fv = freeService.getFree(fNo);
+
+		req.setAttribute("fv",fv);
+		
+		req.getRequestDispatcher("/f_boa/f_edit.jsp").forward(req, resp);
+	
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		System.out.println(">>");
+		int fNo = Integer.parseInt(req.getParameter("fNo"));
+		String fTitle = req.getParameter("fTitle");
+		String fCon = req.getParameter("fCon");
+	
+		IFreeService freeService = FreeServiceImpl.getInstance();
+		
+		FreeVO fv = new FreeVO();
+		fv.setfNo(fNo);
+		fv.setfTitle(fTitle);
+		fv.setfCon(fCon);
+		
+		int cnt = freeService.modifyFree(fv);
+		
+		String msg = "";
+		if(cnt > 0) {
+			msg = "성공";
+		}else {
+			msg = "실패";
+		}
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("msg", msg);
+		
+		resp.sendRedirect(req.getContextPath() + "/free/list.do");
+	
+		
+	}
+
+	
+	
+	
+}
+	
+	
+	
+

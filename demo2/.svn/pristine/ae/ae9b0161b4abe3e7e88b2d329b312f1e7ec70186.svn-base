@@ -1,0 +1,8 @@
+package report.dao;
+
+import report.vo.ReportVO;
+
+public interface IReportDao {
+	
+	public int insertReport(ReportVO rv);
+}

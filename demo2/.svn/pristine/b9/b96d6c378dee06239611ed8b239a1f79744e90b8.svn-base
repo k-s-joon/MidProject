@@ -1,0 +1,71 @@
+<%@page import="member.vo.MemberVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	List<MemberVO> memList = (List<MemberVO>) request.getAttribute("memList");
+MemberVO mv = (MemberVO) request.getAttribute("mv");
+String msg = session.getAttribute("msg") == null ? "" : (String) session.getAttribute("msg");
+session.removeAttribute("msg");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<!-- 	<form action="updatemanager?memId=" method="post"> -->
+		<form action="updatemanager" method="post">
+			<table border="1">
+				<%
+					int memSize = memList.size();
+				if (memSize > 0) {
+					for (int i = 0; i < memSize; i++) {
+						if (memList.get(i).getMemP() != 1) {
+				%>
+				<tr>
+					<td><input value="<%=memList.get(i).getMemId()%>" name="memId" ></td>
+					<td><%=memList.get(i).getMemId()%></td>
+					<td><%=memList.get(i).getMemNick()%></td>
+					<td><select id = "selectP" onchange="memChange()">
+							<option value="<%=memList.get(i).getMemP()%>" selected>
+								<%
+									if (memList.get(i).getMemP() == 0) {
+								%> 일반회원
+								<%
+									} else if (memList.get(i).getMemP() == 2) {
+								%> 블랙리스트
+								<%
+									}
+								%>
+							</option>
+							<option value="0">일반회원</option>
+							<option value="2">블랙리스트</option>
+					</select><input type="submit"></td>
+					<td><button>변경</button></td>
+				</tr>
+				<%
+					}
+				}
+				}
+				%>
+			</table>
+		</form>
+	</div>
+</body>
+
+<script>  
+function memChange(){  
+var langSelect = document.getElementById("selectP");  
+  
+// select element에서 선택된 option의 value가 저장된다.  
+var selectValue  = langSelect.options[langSelect.selectedIndex].value;
+  
+
+alert(selectValue);
+}
+</script>
+</html>
+</html>

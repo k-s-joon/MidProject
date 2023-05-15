@@ -1,0 +1,70 @@
+package after.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import dao.MyBatisDao;
+import after.vo.AfterVO;
+
+public class AfterDaoImpl extends MyBatisDao implements IAfterDao{
+
+	private static IAfterDao afterdao;
+	private AfterDaoImpl() {
+		
+	}
+	public static IAfterDao getInstance() {
+		if(afterdao == null) {
+			afterdao = new AfterDaoImpl();
+		}
+		return afterdao;
+	}
+	@Override
+	public int insertAfter(AfterVO av) {
+		return insert("after.insertAfter",av);
+	}
+	@Override
+	public boolean checkAfter(String memId) {
+
+		boolean isExist = false;
+		
+		int cnt = selectOne("after.checkAfter",memId);
+
+		if(cnt > 0) {
+			isExist = true;
+		}
+		return isExist;
+	}
+	@Override
+	public AfterVO getMemId(String memId) {
+		return selectOne("after.getMemId",memId);
+	}
+	@Override
+	public int updateAfter(AfterVO av) {
+		return update("after.updateAfter",av);
+	}
+	@Override
+	public int deleteAfter(String memId) {
+		return delete("after.deleteAfter",memId);
+	}
+	@Override
+	public List<AfterVO> selectAllAfterVOs() {
+		List<AfterVO> afterList = selectList("after.searchAllAfter");
+		return afterList;
+	}
+	@Override
+	public List<AfterVO> searchAfterVO(AfterVO av) {
+		List<AfterVO> afterList = selectList("after.searchAfter",av);
+		return afterList;
+	}
+	@Override
+	public AfterVO getAfter(int afNo) {
+		return selectOne("after.getAfter",afNo);
+	
+	}
+	@Override
+	public int deleteAfter(int afNo) {
+		return delete("after.deleteAfter", afNo);
+	}
+	
+}

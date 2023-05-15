@@ -1,0 +1,65 @@
+package after.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import after.service.AfterServiceImpl;
+import after.service.IAfterService;
+import after.vo.AfterVO;
+
+@WebServlet(value="/after/insert.do")
+@MultipartConfig
+public class InsertAfterController extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		
+//		req.setAttribute("mem_id", mem_id);
+		
+		req.getRequestDispatcher("/a_boa/a_insert.jsp").forward(req, resp);
+	
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String afTitle = req.getParameter("afTitle");
+		String afCon = req.getParameter("afCon");
+		String afNick = req.getParameter("afNick");
+	
+		IAfterService afterService = AfterServiceImpl.getInstance();
+		
+		AfterVO av = new AfterVO();
+		av.setafTitle(afTitle);
+		av.setafCon(afCon);
+		av.setafNick(afNick);
+		
+		int cnt = afterService.registAfter(av);
+		
+		String msg = "";
+		if(cnt > 0) {
+			msg = "성공";
+		}else {
+			msg = "실패";
+		}
+		System.out.println(msg);
+		
+		HttpSession session = req.getSession();
+		session.setAttribute(msg, msg);
+		
+		resp.sendRedirect(req.getContextPath() + "/after/list.do");
+	
+		
+	}
+
+	
+	
+	
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat">
+	<resultMap type="CVO" id="chatMap">
+		<result column="chat_no" property="chatNo" />
+		<result column="from_id" property="fromId" />
+		<result column="from_nick" property="fromNick" />
+		<result column="chat_content" property="chatContent" />
+		<result column="chat_time" property="chatTime" />
+		<result column="msg_no" property="msgNo" />
+	</resultMap>
+<select id="selectAllChat" resultType="CVO">
+ select * from chat
+ where msg_no = #{msgNo}
+ order by chat_no
+</select>
+
+<select id = "getChat" parameterType="int" resultMap ="chatMap">
+select * from chat
+where msg_no = #{msgNo}
+ order by chat_no
+</select>
+
+<select id = "getChatList" parameterType="int" resultMap="chatMap">
+select * from chat
+where msg_no = #{msgNo}
+ order by chat_no
+</select>
+
+<insert id = "insertChat" parameterType="CVO">
+insert into chat
+(chat_no, from_id, from_nick, chat_content, chat_time, msg_no)
+values (CHAT_SEQ.nextval, #{fromId}, #{fromNick}, #{chatContent}, sysdate, #{msgNo})
+</insert>
+
+</mapper>

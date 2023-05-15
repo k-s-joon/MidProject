@@ -1,0 +1,58 @@
+package chat.vo;
+
+import java.util.Date;
+
+public class ChatVO {
+
+	private int chat_no; // key
+	private String fromId; // 내 id
+	private String fromNick; // 내 닉네임
+	private String toId; // 상대 id
+	private String toNick; // 상대 Nick
+	private String chatContent; // 내용
+	private Date chatTime; // 입력 일자
+	public int getChat_no() {
+		return chat_no;
+	}
+	public void setChat_no(int chat_no) {
+		this.chat_no = chat_no;
+	}
+	public String getFromId() {
+		return fromId;
+	}
+	public void setFromId(String fromId) {
+		this.fromId = fromId;
+	}
+	public String getFromNick() {
+		return fromNick;
+	}
+	public void setFromNick(String fromNick) {
+		this.fromNick = fromNick;
+	}
+	public String getToId() {
+		return toId;
+	}
+	public void setToId(String toId) {
+		this.toId = toId;
+	}
+	public String getToNick() {
+		return toNick;
+	}
+	public void setToNick(String toNick) {
+		this.toNick = toNick;
+	}
+	public String getChatContent() {
+		return chatContent;
+	}
+	public void setChatContent(String chatContent) {
+		this.chatContent = chatContent;
+	}
+	public Date getChatTime() {
+		return chatTime;
+	}
+	public void setChatTime(Date chatTime) {
+		this.chatTime = chatTime;
+	}
+	
+	
+}

@@ -1,0 +1,33 @@
+package report.dao;
+
+import dao.MyBatisDao;
+import member.dao.FileDaoImpl;
+import member.dao.IFileDao;
+import report.vo.ReportVO;
+
+public class ReportDaoImpl extends MyBatisDao implements IReportDao  {
+	private static IReportDao reportDao;
+	
+	private ReportDaoImpl () {
+		
+	}
+	
+	public static IReportDao getInstance() {
+		if(reportDao == null) {
+			reportDao = new ReportDaoImpl();
+		}
+		return reportDao;
+	}
+	
+	
+	
+	
+	
+	
+	@Override
+	public int insertReport(ReportVO rv) {
+		// TODO Auto-generated method stub
+		return insert("report.insertReport",rv);
+	}
+
+}

@@ -1,0 +1,20 @@
+package free.dao;
+
+import java.util.List;
+
+import free.vo.FreeVO;
+
+public interface IFreeDao {
+	public int insertFree(FreeVO fv);
+	public boolean checkFree(String memId);
+	public FreeVO getMemId(String memId);
+	public FreeVO getFree(int fNo);
+	public int updateFree(FreeVO fv);
+	public int deleteFree(String memId);
+	public List<FreeVO> selectAllFreeVOs();
+	public List<FreeVO> searchFreeVO(FreeVO fv);
+
+	
+	
+	
+}

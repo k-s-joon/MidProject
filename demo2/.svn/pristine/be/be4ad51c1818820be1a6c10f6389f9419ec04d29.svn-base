@@ -1,0 +1,50 @@
+package notice.vo;
+
+import java.sql.Date;
+
+public class NoticeVO {
+	private int noticeNo;
+	private String noticeTitle;
+	private String noticeCon;
+	private Date noticeDate;
+	private Date noticeUpdate;
+	private String managerId;
+	
+	public int getNoticeNo() {
+		return noticeNo;
+	}
+	public void setNoticeNo(int noticeNo) {
+		this.noticeNo = noticeNo;
+	}
+	public String getNoticeTitle() {
+		return noticeTitle;
+	}
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
+	}
+	public String getNoticeCon() {
+		return noticeCon;
+	}
+	public void setNoticeCon(String noticeCon) {
+		this.noticeCon = noticeCon;
+	}
+	public Date getNoticeDate() {
+		return noticeDate;
+	}
+	public void setNoticeDate(Date noticeDate) {
+		this.noticeDate = noticeDate;
+	}
+	public Date getNoticeUpdate() {
+		return noticeUpdate;
+	}
+	public void setNoticeUpdate(Date noticeUpdate) {
+		this.noticeUpdate = noticeUpdate;
+	}
+	public String getManagerId() {
+		return managerId;
+	}
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
+
+}

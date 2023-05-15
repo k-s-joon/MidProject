@@ -1,0 +1,42 @@
+package after.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import after.service.AfterServiceImpl;
+import after.service.IAfterService;
+import after.vo.AfterVO;
+
+
+@WebServlet(value = "/after/list.do")
+public class ListAfterController extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	IAfterService afterService = AfterServiceImpl.getInstance();
+	
+	List<AfterVO> afterList = afterService.listAllAfter();
+	
+	req.setAttribute("afterList", afterList);
+	
+	req.getRequestDispatcher("/a_boa/a_list.jsp").forward(req, resp);
+	
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+
+	
+	
+	
+}

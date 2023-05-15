@@ -1,0 +1,59 @@
+package message.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import message.service.IMessageService;
+import message.service.MessageService;
+import message.vo.MessageVO;
+
+@WebServlet("/message/write.do")
+public class MessageWriteController extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+//		HttpSession session = req.getSession();
+//		String loginCode = (String) session.getAttribute("loginCode");
+		
+		req.getRequestDispatcher("/messageWrite.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		String loginCode = (String) session.getAttribute("loginCode");
+		
+		String receiverId = req.getParameter("receiverId"); 
+		String msgCon = req.getParameter("msgCon"); 
+		
+		IMessageService msgService = MessageService.getInstance();
+		
+		MessageVO msgv = new MessageVO();
+		msgv.setReceiverId(receiverId);
+		msgv.setMsgCon(msgCon);
+
+		
+		int cnt = msgService.registMessage(msgv);
+		
+		String msg = "";
+		if(cnt > 0) {
+			msg = "성공";
+		}else {
+			msg = "실패";
+		}
+		
+//		HttpSession session = req.getSession();
+//		session.setAttribute("msg", msg);
+		
+		resp.sendRedirect(
+				req.getContextPath() + "/message/messageWrite.jsp");	
+	}
+	
+}

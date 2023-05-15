@@ -1,0 +1,21 @@
+package after.dao;
+
+import java.util.List;
+
+import after.vo.AfterVO;
+
+public interface IAfterDao {
+	public int insertAfter(AfterVO av);
+	public boolean checkAfter(String memId);
+	public AfterVO getMemId(String memId);
+	public AfterVO getAfter(int afNo);
+	public int updateAfter(AfterVO av);
+	public int deleteAfter(String memId);
+	public List<AfterVO> selectAllAfterVOs();
+	public List<AfterVO> searchAfterVO(AfterVO fv);
+	public int deleteAfter(int afNo);
+
+	
+	
+	
+}

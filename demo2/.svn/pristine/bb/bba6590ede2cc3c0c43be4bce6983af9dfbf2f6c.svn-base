@@ -1,0 +1,63 @@
+package free.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import free.service.FreeComServiceImpl;
+import free.service.FreeServiceImpl;
+import free.service.IFreeComService;
+import free.service.IFreeService;
+import free.vo.FComVO;
+import free.vo.FreeVO;
+
+@WebServlet(value="/free/insertcom.do")
+public class InsertFreeComController extends HttpServlet {
+
+
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		FComVO fcv1 = new FComVO();
+		
+		String fComCon = req.getParameter("fComCon");
+		String fComNick = req.getParameter("fComNick");
+		String memId = req.getParameter("memId");
+		
+	
+		IFreeComService freecomService = FreeComServiceImpl.getinstance();
+		
+		fcv1.setfComCon(fComCon);
+		fcv1.setfComNick(fComNick);
+		fcv1.setMemId(memId);
+		
+		int cnt1 = freecomService.registFreeCom(fcv1);
+		
+		String msg1 = "";
+		if(cnt1 > 0) {
+			msg1 = "성공";
+		}else {
+			msg1 = "실패";
+		}
+		System.out.println(msg1);
+		
+		HttpSession session1 = req.getSession();
+		session1.setAttribute("msg", msg1);
+		
+		
+		req.getRequestDispatcher("/free/detail.do").forward(req, resp);
+		
+	}
+
+	
+	
+	
+}

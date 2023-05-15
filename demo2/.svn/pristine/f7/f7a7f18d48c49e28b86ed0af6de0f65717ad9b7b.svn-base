@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="askcom">
+
+
+	<resultMap type="AComVO" id="askcomMap">
+		<result column="ACOM_NO" property="aComNo" />
+		<result column="ACOM_CON" property="aComCon" />
+		<result column="ACOM_NICK" property="aComNick" />
+		<result column="ASK_NO" property="askNo" />
+		<result column="MEM_ID" property="memId" />
+	</resultMap>
+
+	<select id="selectAllAskCom" resultType="AComVO">
+		select * from ACOM
+		where ask_no = #{askNo}
+	</select>
+
+	<select id="getAskCom" parameterType="int" resultMap="askcomMap">
+		select * from ACOM
+		where ask_no = #{askNo}
+	</select>
+
+	<select id="getAskComList" parameterType="int" resultMap="askcomMap">
+		select * from ACOM
+		where ask_no = #{askNo}
+	</select>
+
+	<insert id="insertAskCom" parameterType="ask.vo.AComVO">
+		insert into ACOM
+		(ACOM_NO, ACOM_CON, ACOM_NICK, ASK_NO, MEM_ID)
+		values (ACOM_SEQ.nextval, #{aComCon}, #{aComNick}, #{askNo}, #{memId})
+	</insert>
+
+</mapper>

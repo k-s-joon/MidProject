@@ -1,0 +1,58 @@
+<%@page import="ask.vo.AskVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	
+<%
+   AskVO av =(AskVO) request.getAttribute("av");
+%>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="../css/css.css">
+</head>
+<body>
+ <form action="./insert.do" method="post">
+
+    <div class="board_wrap">
+        <div class="board_title">
+            <strong>문의사항</strong>
+            <p>문의글 올리기</p>
+        </div>
+        <div class="board_write_wrap">
+            <div class="board_write">
+                <div class="title">
+                    <dl>
+                        <dt>제목</dt>
+                        <dd><input type="text" name="askTitle" placeholder="제목 입력"></dd>
+                    </dl>
+                </div>
+           
+                <div class="cont">
+                    <textarea name ="askCon" placeholder="내용 입력"></textarea>
+                </div>
+                
+              	<div class="writer">
+                    <dl>
+                        <dt>글쓴이</dt>
+                        <dd><input type="text" name="askNick" ></dd>
+                    </dl>
+                </div>   
+                
+               <input type="hidden" name="memId" value="<%=av.getMemId()%>" >
+            </div>
+         
+            <div class="bt_wrap">
+<!--                 <a href="list.do" class="on">등록</a> -->
+				<input class="on" type="submit" value="등록">
+                <a href="/list.do">취소</a>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

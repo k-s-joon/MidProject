@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="member.vo.FileVO"%>
+<%@page import="java.util.List"%>
+<%@page import="member.service.IFileService"%>
+<%@page import="member.service.FileServiceImpl"%>
+
+<%
+  String memId = (String)session.getAttribute("loginCode");
+	int memP = (int) session.getAttribute("memP");
+	IFileService fileservice = FileServiceImpl.getInstance(); 
+	FileVO fv = fileservice.getProfile(memId);
+
+%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>main</title>
+    <link href="css/sidemain.css" rel="stylesheet"/>  
+    <link href="css/main.css" rel="stylesheet"/>
+<!--     <link href="css/bootstrap.css" rel="stylesheet"/> -->
+<!--    <link rel="stylesheet" -->
+<!--    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script
+   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+
+<%if(memP == 0) {%>
+<!-- profile box -->
+<input type="checkbox" id="check">
+  <label for="check">
+<i class="fa fa-bars" id="btn"></i>
+<i class="fa fa-times" id="cancle"></i>
+  </label>
+
+
+<div class="sidebar">
+<header> <%if(fv==null){ %>  <img src="./img/기본프로필.png"><%} else{  %>
+		<img src="<%=request.getContextPath()%>/download.do?fileSn=<%=fv.getFileSn()%>&fileNo=<%=fv.getFileNo()%>">
+		<%} %>
+		</header>
+<p>
+
+</p>
+	<ul>
+    	<li><a href="/demo2/Mypage"><i class="fa fa-qrcode"></i>마이페이지</a></li>
+<!--     	<li><a href="#"><i class="fa fa-link"></i>Shortcuts</a></li> -->
+    	<li><a href="/demo2/message/Sendlist.do"><i class="fa fa-eye"></i>보낸 쪽지함</a></li>
+    	<li><a href="/demo2/message/list.do"><i class="fa fa-book" ></i>받은 쪽지함</a></li>
+<!--     	<li><a href="#"><i class="fa fa-question-circle"></i>About</a></li> -->
+    	<li><a href="logout.jsp"><i class="fa fa-sliders"></i>로그아웃</a></li>
+
+
+    </ul> 
+    
+
+</div>
+<%} else {}; %>
+    
+<!-- </div> -->
+
+
+</body>
+</html>
+  

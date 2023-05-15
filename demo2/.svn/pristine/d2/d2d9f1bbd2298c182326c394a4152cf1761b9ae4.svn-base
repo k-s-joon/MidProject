@@ -1,0 +1,34 @@
+package free.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import free.service.FreeComServiceImpl;
+import free.service.IFreeComService;
+import free.vo.FComVO;
+
+
+@WebServlet("/freecom/list.do")
+public class ListFComController extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		IFreeComService freecomService = FreeComServiceImpl.getinstance();
+		
+		List<FComVO> freecomList = freecomService.listAllFreeCom();
+		
+		req.setAttribute("freecomList", freecomList);
+		
+		req.getRequestDispatcher("/f_boa/f_detail.jsp").forward(req, resp);
+	}
+	
+	
+	
+}

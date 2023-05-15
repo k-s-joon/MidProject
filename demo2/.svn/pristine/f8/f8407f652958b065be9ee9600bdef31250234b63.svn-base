@@ -1,0 +1,77 @@
+package message.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import dao.MyBatisDao;
+import message.vo.MessageVO;
+
+public class MessageDao extends MyBatisDao implements IMessageDao {
+	
+	private static IMessageDao msgDao;
+	
+	private MessageDao() {
+		
+	}
+
+	public static IMessageDao getInstance() {
+		if(msgDao == null) {
+			msgDao = new MessageDao();
+		}
+		
+		return msgDao;
+	}
+	
+	@Override
+	public int insertMessage(MessageVO mv) {
+		return insert("message.insertMessage", mv);
+	}
+
+	@Override
+	public String checkMessage(Map<String, Object> map) {
+	
+		return selectOne("message.checkMessage", map);
+	}
+
+	@Override
+	public int updateMessage(MessageVO mv) {
+		
+		return update("message.updateMessage", mv);
+	}
+
+	@Override
+	public int deleteMessage(String msgNo) {
+		
+		return delete("message.deleteMessage", msgNo);
+	}
+
+	@Override
+	public List<MessageVO> selectAllMessage() {
+		
+		List<MessageVO> memList = 
+				selectList("message.selectAllMessage");
+		
+		return memList;
+	}
+
+	@Override
+	public List<MessageVO> searchMessage(MessageVO mv) {
+		
+		List<MessageVO> msgList = 
+				selectList("message.searchMessage", mv);
+		
+		return msgList;
+	}
+
+	@Override
+	public MessageVO getMessage(String receiverId) {
+		
+		return selectOne("message.getMessage", receiverId);
+	}
+
+	@Override
+	public boolean checkMessage(String receiverId) {
+		return false;
+	}
+
+}

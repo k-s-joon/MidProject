@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/topbar.css">  
+</head>
+<body>
+<div class="sidebar-navigation">
+		<div class="logo">
+			<a href="./main.jsp"><img src="./img/logo.png" style="width: 150px; margin: 0px 50px;"></a>
+		</div>
+		<nav>		
+			<ul>
+				
+				<a href="#"> <span class="rect"></span> <span class="circle"></span> 인연 찾아보기
+				</a>
+
+				<a href="#featured"> <span class="rect"></span> <span class="circle"></span> 문의 게시판
+				</a>
+
+				<a href="#projects"> <span class="rect"></span> <span class="circle"></span> 
+				</a>
+
+				<a href="#video"> <span class="rect"></span> <span class="circle"></span> 
+				</a>
+
+				<a href="./free/list.do"> <span class="rect"></span> <span class="circle"></span>
+					자유 게시판
+				</a>
+
+				<a href="./notice/list.do"> <span class="rect"></span> <span class="circle"></span> 공지사항
+				</a>
+
+			</ul>
+	</nav>	
+	</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+package member.controller;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+import member.service.IMemberService;
+import member.service.MemberServiceImpl;
+import member.vo.MemberVO;
+
+/**
+ * Servlet implementation class MypageInsert
+ */
+@WebServlet("/MypageInsert")
+public class MypageInsert extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public MypageInsert() {
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		request.getRequestDispatcher("mypageinsert.jsp").forward(request, response);
+	
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		 HttpSession session = request.getSession();
+		 String memId = (String)session.getAttribute("loginCode");
+	
+		
+	
+		
+		
+		request.setCharacterEncoding("UTF-8");
+		String memMail = request.getParameter("memMail");
+		String memNick = request.getParameter("memNick");
+		String memMbti= request.getParameter("memMbti");
+		String memLike= request.getParameter("memLike");
+		String memDislike= request.getParameter("memDislike");
+		String memReligion= request.getParameter("memReligion");
+		String memSmoking= request.getParameter("memSmoking");
+		String memKey= request.getParameter("memKey");
+		String memDrink= request.getParameter("memDrink");
+		
+		
+		MemberVO mv = new MemberVO();
+		mv.setMemMail(memMail);
+		mv.setMemId(memId);
+		mv.setMemNick(memNick);
+		mv.setMemMbti(memMbti);
+		mv.setMemLike(memLike);
+		mv.setMemDislike(memDislike);
+		mv.setMemReligion(memReligion);
+		mv.setMemSmoking(memSmoking);
+		mv.setMemKey(memKey);
+		mv.setMemDrink(memDrink);
+		
+		
+		IMemberService service = MemberServiceImpl.getInstance();
+		int cnt = service.updateMember(mv);
+		
+		if(cnt>0) {
+			
+			request.setAttribute("insertCode", "yes");
+			request.getRequestDispatcher("Mypage").forward(request, response);
+			
+		}else {
+			request.setAttribute("insertCode", "no");
+			request.getRequestDispatcher("MypageInsert").forward(request, response);
+		}
+	}
+
+}

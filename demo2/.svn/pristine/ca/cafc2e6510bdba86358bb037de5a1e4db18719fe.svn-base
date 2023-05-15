@@ -1,0 +1,47 @@
+package member.dao;
+
+import java.util.List;
+
+import dao.MyBatisDao;
+import member.vo.FileVO;
+
+public class FileDaoImpl extends MyBatisDao implements IFileDao  {
+private static IFileDao fileDao;
+	
+	private  FileDaoImpl() {
+		// TODO Auto-generated constructor stub
+	} 
+	
+	public static IFileDao getInstance() {
+		if(fileDao == null) {
+			fileDao = new FileDaoImpl();
+		}
+		return fileDao;
+	}
+	
+	
+	@Override
+	public int insertFile(FileVO FileVO) {
+		
+		return insert("File.insertFile",FileVO);
+	}
+
+	@Override
+	public int insertFileDetail(FileVO FileVO) {
+		// TODO Auto-generated method stub
+		return insert("File.insertFileDetail",FileVO);
+	}
+
+	@Override
+	public List<FileVO> getFileList(FileVO FileVO) {
+		// TODO Auto-generated method stub
+		return selectList("File.getFileList", FileVO);
+	}
+
+	@Override
+	public FileVO getFileDetail(FileVO FileVO) {
+		// TODO Auto-generated method stub
+		return selectOne("File.getFileDetail", FileVO);
+	}
+	
+}

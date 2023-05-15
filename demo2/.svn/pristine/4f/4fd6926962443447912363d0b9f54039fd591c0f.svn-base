@@ -1,0 +1,111 @@
+<%@page import="free.vo.FComVO"%>
+<%@page import="free.vo.FreeVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	List<FComVO> freecomList = (List<FComVO>)request.getAttribute("fcv");
+	FreeVO fv = (FreeVO) request.getAttribute("fv");
+	String memId = (String) session.getAttribute("memId");
+	String memNick = (String) session.getAttribute("memNick");
+%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유게시판</title>
+    <link rel="stylesheet" href="../css/css.css">
+</head>
+<body>
+<form action="./update.do" method="post">
+    <div class="board_wrap">
+        <div class="board_title">
+            <strong>자유게시판</strong>
+            <p>여러분의 이야기를 들려주세요</p>
+        </div>
+        <div class="board_view_wrap">
+            <div class="board_view">
+                <div class="title">
+             	<dd><%=fv.getfTitle() %></dd>
+                </div>
+                <div class="info">
+                    <dl>
+                        <dt>글 번호</dt>
+                        <dd><%=fv.getfNo() %></dd>
+                    </dl>
+                    <dl>
+                        <dt>닉네임</dt>
+                        <dd><%=fv.getfNick() %></dd>
+                    </dl>
+                    <dl>
+                        <dt>작성일</dt>
+                        <dd><%=fv.getfDate() %></dd>
+                    </dl>
+                </div>
+                <div class="cont">
+                  <dd><%=fv.getfCon() %></dd>
+                </div>
+            </div>
+            <%
+            int freecomSize = freecomList.size();
+            if(freecomSize > 0){
+            	for(int i=0; i<freecomSize; i++){
+            
+            %>
+                <div>
+                  <dd>댓글번호<%=freecomList.get(i).getfComNo()%></dd>
+                  <dd>댓글내용<%=freecomList.get(i).getfComCon()%></dd>
+                  <dd>댓글닉네임<%=freecomList.get(i).getfComNick()%></dd>
+                  <dd>글번호<%=freecomList.get(i).getfNo()%></dd>
+                  <dd>댓글아이디<%=freecomList.get(i).getMemId()%></dd>
+                </div>
+                
+                        
+           
+           <%
+            }
+            }else{
+           %>
+         			<tr>
+						<td colspan="5">글이 존재하지 않습니다.</td>
+					</tr>
+			<%
+				}
+			%>
+                <div class="info">
+                    <dl>
+                        <dt>글번호</dt>
+                        <dd><input type="hidden" name="fComNo" value="" /></dd>
+                    </dl>
+                    <dl>
+                        <dt>닉네임</dt>
+                        <dd><input type="hidden" name="fComNick" value="" readonly/></dd>
+                    </dl>
+                    <dl>
+                        <dt>글번호</dt>
+                        <dd><input type="hidden" name="fNo" value="" readonly/></dd>
+                    </dl>
+                    <dl>
+                        <dt>아이디</dt>
+                        <dd><input type="hidden" name="memId" value="" readonly/></dd>
+                    </dl>
+                </div>
+                <div>
+                    <textarea name = "fComCon" placeholder="내용 입력"></textarea>
+                </div>
+                <button>댓글작성완료</button>
+                
+                </div>
+           
+           <div>
+            <div class="bt_wrap">
+                <a href="./list.do" class="on">목록</a>   
+              <a href="<%=request.getContextPath()%>/free/update.do?fNo=<%=fv.getfNo()%>">수정</a>
+              <a href="./delete.do?fNo=<%=fv.getfNo() %>">글 삭제</a>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

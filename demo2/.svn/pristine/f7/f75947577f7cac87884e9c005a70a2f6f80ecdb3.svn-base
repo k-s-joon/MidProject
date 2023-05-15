@@ -1,0 +1,34 @@
+package chat.dao;
+
+import java.util.List;
+
+import chat.vo.ChatVO;
+import dao.MyBatisDao;
+
+public class ChatDaoImpl extends MyBatisDao implements IChatDao {
+
+	private static IChatDao chatDao;
+	
+	private ChatDaoImpl() {
+		
+	}
+	
+	public static IChatDao getInstance() {
+		if(chatDao == null) {
+			chatDao = new ChatDaoImpl();
+		}
+		return chatDao;
+	}
+	
+	@Override
+	public int insertChat(ChatVO cv) {
+		return insert("chat.insertchat",cv);
+	}
+
+	@Override
+	public List<ChatVO> selectChat(ChatVO cv) {
+		List<ChatVO> chatList = selectList("chat.selectchat", cv);
+		return chatList;
+	}
+
+}

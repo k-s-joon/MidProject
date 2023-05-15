@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="after">
+
+
+<resultMap type="AfterVO" id="afterMap">
+	<result column = "AF_NO" property="afNo"/>
+	<result column = "AF_TITLE" property="afTitle"/>
+	<result column = "AF_CON" property="afCon"/>
+	<result column = "AF_DATE" property="afDate"/>
+	<result column = "AF_UPDATE" property="afUpdate"/>
+	<result column = "AF_NICK" property="afNick"/>
+	<result column = "MEM_ID" property="memId"/>
+</resultMap>
+
+<select id="searchAllAfter" resultType="AfterVO">
+ select * from after
+ order by af_no DESC
+</select>
+
+<insert id ="insertAfter" parameterType="after.vo.AfterVO">
+insert into free
+(af_no, af_title, af_con, af_date, af_nick, mem_id)
+values (AFTER_SEQ.nextval, #{afTitle}, #{afCon}, sysdate, #{afNick}, 'sj')
+</insert>
+
+<select id = "getAfter" parameterType="int" resultMap ="afterMap">
+select * from after
+where af_no= #{afNo}
+
+</select>
+
+<update id="updateAfter" parameterType="after.vo.afterVO">
+update after
+set af_title = #{afTitle},
+	af_con = #{afCon}
+where af_no = #{afNo}
+
+</update>
+
+<select id="searchAfter" resultMap="afterMap">
+
+	select * from after
+	where af_no = #{afNo}
+
+</select>
+
+<delete id = "deleteAfter" parameterType="int">
+delete from after
+where af_no =#{afNo}
+
+</delete>
+
+
+
+</mapper>

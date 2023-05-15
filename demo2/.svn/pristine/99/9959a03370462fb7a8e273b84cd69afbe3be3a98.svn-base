@@ -1,0 +1,61 @@
+package member.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import member.service.IMemberService;
+import member.service.MemberServiceImpl;
+import member.vo.MemberVO;
+
+
+@WebServlet("/searchmember")
+public class Matching extends HttpServlet{
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		IMemberService memberService = MemberServiceImpl.getInstance();
+		
+		List<MemberVO> memberList = memberService.selectAllMember();
+		
+		req.setAttribute("memberList", memberList);
+		
+		req.getRequestDispatcher("search.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String memSex = req.getParameter("memSex");
+		String memMbti = req.getParameter("memMbti");
+		String memHobby = req.getParameter("memHobby");
+		String memReligion = req.getParameter("memReligion");
+		String memSmoking = req.getParameter("memSmoking");
+		String memDrink = req.getParameter("memDrink");
+		String memBirch = req.getParameter("memBirch");
+		
+		IMemberService memService = MemberServiceImpl.getInstance();
+		
+		MemberVO mv = new MemberVO();
+		mv.setMemSex(memSex);
+		mv.setMemMbti(memMbti);
+		mv.setMemHobby(memHobby);
+		mv.setMemReligion(memReligion);
+		mv.setMemSmoking(memSmoking);
+		mv.setMemDrink(memDrink);
+		mv.setMemBirch(memBirch);
+		
+		List<MemberVO> memberList = memService.searchMember(mv);
+
+		req.setAttribute("memberList", memberList);
+		
+		resp.sendRedirect(
+				req.getContextPath() + "/searchfind.jsp");
+	}
+}

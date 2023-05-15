@@ -1,0 +1,74 @@
+package member.controller;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.service.IMemberService;
+import member.service.MemberServiceImpl;
+import member.vo.MemberVO;
+
+/**
+ * Servlet implementation class Login
+ */
+@WebServlet("/Login")
+public class Login extends HttpServlet {
+	
+	
+			
+	private static final long serialVersionUID = 1L;
+       
+    public Login() {
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	 String uId =	request.getParameter("userId");
+	 String uPw =	request.getParameter("userPw");
+
+	 
+	 Map<String, Object> map = new HashMap<String, Object>();
+	 map.put("memId", uId);
+	 map.put("memPw", uPw);
+	 
+	  IMemberService service = MemberServiceImpl.getInstance();
+	  
+	  MemberVO mv = new MemberVO();
+	  
+	  
+	  String memId = service.checkMember(map);
+	  if(memId != null) {
+			//회원자격을 가지고 메인페이지로 이동 - loginCode 생성후 가져감
+		  mv = service.getMember(memId);
+		  String memNick = mv.getMemNick();
+		  int memP = mv.getMemP();
+		  
+			HttpSession session = request.getSession();
+			session.setAttribute("loginCode",memId);
+			session.setAttribute("memNick", memNick);
+			session.setAttribute("memP", memP);
+
+			request.getRequestDispatcher("/main.jsp").forward(request, response);
+			
+			
+			
+		} else {
+			//기존 로그인 페이지 유지
+			
+			request.setAttribute("loginCode","no");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+	
+	
+	}
+	
+}

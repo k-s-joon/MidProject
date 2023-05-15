@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>main</title>
+   
+  <!--   <link href="style/common.css" rel="stylesheet" type="text/css" />
+    <link href="style/main.css" rel="stylesheet" type="text/css" />  JS 주석-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+<!-- profile box -->
+<input type="checkbox" id="check">
+  <label for="check">
+<i class="fa fa-bars" id="btn"></i>
+<i class="fa fa-times" id="cancle"></i>
+  </label>
+<!-- <link href="style/common.css" rel="stylesheet" type="text/css" /> sem 이주석-->
+
+<div class="sidebar">
+<header><img src="../img/백현.png">
+<p>hyun</p>
+<ul>
+    <li><a href="#"><i class="fa fa-qrcode"></i>Dashboard</a></li>
+    <li><a href="#"><i class="fa fa-link"></i>Shortcuts</a></li>
+    <li><a href="#"><i class="fa fa-eye"></i>Overview</a></li>
+    <li><a href="#"><i class="fa fa-book"></i>Event</a></li>
+    <li><a href="#"><i class="fa fa-question-circle"></i>About</a></li>
+    <li><a href="#"><i class="fa fa-sliders"></i>Service</a></li>
+    <li><a href="#"><i class="fa fa-id-card"></i>Contact</a></li>
+    </ul>
+</div>
+
+
+</body>
+</html>
+  

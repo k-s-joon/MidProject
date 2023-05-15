@@ -1,0 +1,12 @@
+package chat.service;
+
+import java.util.List;
+
+import chat.vo.ChatVO;
+
+public interface IChatService {
+
+	public int insertChat(ChatVO cv);
+
+	public List<ChatVO> selectChat(ChatVO cv);
+}

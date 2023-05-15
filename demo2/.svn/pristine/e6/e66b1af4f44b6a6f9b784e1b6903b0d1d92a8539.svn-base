@@ -1,0 +1,253 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+   
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+    body {
+      font: 400 15px/1.8 Lato, sans-serif;
+      color: #777;
+    }
+    h3, h4 {
+      margin: 10px 0 30px 0;
+      letter-spacing: 10px;      
+      font-size: 20px;
+      color: #111;
+    }
+    .container {
+      padding: 80px 120px;
+    }
+    .person {
+      border: 10px solid transparent;
+      margin-bottom: 25px;
+      width: 80%;
+      height: 80%;
+      opacity: 0.7;
+    }
+    .person:hover {
+      border-color: #f1f1f1;
+    }
+    .carousel-inner img {
+      -webkit-filter: grayscale(90%);
+      filter: grayscale(90%); /* make all photos black and white */ 
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+    }
+    .carousel-caption h3 {
+      color: #fff !important;
+    }
+    @media (max-width: 600px) {
+      .carousel-caption {
+        display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+      }
+    }
+    .bg-1 {
+      background: #2d2d30;
+      color: #bdbdbd;
+    }
+    .bg-1 h3 {color: #fff;}
+    .bg-1 p {font-style: italic;}
+    .list-group-item:first-child {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+    }
+    .list-group-item:last-child {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .thumbnail {
+      padding: 0 0 15px 0;
+      border: none;
+      border-radius: 0;
+    }
+    .thumbnail p {
+      margin-top: 15px;
+      color: #555;
+    }
+    .btn {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #f1f1f1;
+      border-radius: 0;
+      transition: .2s;
+    }
+    .btn:hover, .btn:focus {
+      border: 1px solid #333;
+      background-color: #fff;
+      color: #000;
+    }
+    .modal-header, h4, .close {
+      background-color: #333;
+      color: #fff !important;
+      text-align: center;
+      font-size: 30px;
+    }
+    .modal-header, .modal-body {
+      padding: 40px 50px;
+    }
+    .nav-tabs li a {
+      color: #777;
+    }
+    #googleMap {
+      width: 100%;
+      height: 400px;
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+    }  
+    .navbar {
+      font-family: Montserrat, sans-serif;
+      margin-bottom: 0;
+      background-color: #2d2d30;
+      border: 0;
+      font-size: 11px !important;
+      letter-spacing: 4px;
+      opacity: 0.9;
+    }
+    .navbar li a, .navbar .navbar-brand { 
+      color: #d5d5d5 !important;
+    }
+    .navbar-nav li a:hover {
+      color: #fff !important;
+    }
+    .navbar-nav li.active a {
+      color: #fff !important;
+      background-color: #29292c !important;
+    }
+    .navbar-default .navbar-toggle {
+      border-color: transparent;
+    }
+    .open .dropdown-toggle {
+      color: #fff;
+      background-color: #555 !important;
+    }
+    .dropdown-menu li a {
+      color: #000 !important;
+    }
+    .dropdown-menu li a:hover {
+      background-color: red !important;
+    }
+</style>
+
+<link rel="stylesheet" href="css/image-slide1.css">
+
+</head>
+<body>
+    <!-- Container (TOUR Section) -->
+<div id="tour" class="bg-1">
+    <div class="container">
+      <h3 class="text-center">당신의 친구를 찾아보세요.</h3>
+      <p class="text-center">블루밍과 함께 하는 친구 목록
+    
+      <div class="row text-center">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="./img/박보검1.jpg" alt="맛집탐방 좋아요" width="400" height="300">
+            <p><strong>보검복지부장관보검</strong></p>
+            <p><span class="glyphicon glyphicon-fire"></span>블루밍에서 핫한 친구</p>
+            <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="./img/박보검1.jpg" style="box-sizing: 200px;" alt="애인괌@@" width="400" height="300">
+            <p><strong>김두팔</strong></p>
+            <p><span class="glyphicon glyphicon-fire"></span>블루밍에서 핫한 친구</p>
+            <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="./img/박보검1.jpg" alt="고먀미댕댕 사랑해!" width="400" height="300">
+            <p><strong>초코야나비야만수무강하자</strong></p>
+            <p><span class="glyphicon glyphicon-fire"></span>블루밍에서 핫한 친구</p>
+            <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="./img/박보검1.jpg" alt="이구역미친년은나야" width="400" height="300">
+            <p><strong>내짝꿍은누가할래?</strong></p>
+            <p><span class="glyphicon glyphicon-pushpin"></span>어제 처음 블루밍과 함께한 친구</p>
+            <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="./img/박보검1.jpg" alt="탄방동불주먹" width="400" height="300">
+            <p><strong>원펀치쓰리강냉이</strong></p>
+            <p><span class="glyphicon glyphicon-pushpin"></span>어제 처음 블루밍과 함께한 친구</p>
+            <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="./img/박보검1.jpg" alt="자바칩프라푸치노" width="400" height="300">
+            <p><strong>스벅으로가자</strong></p>
+            <p><span class="glyphicon glyphicon-pushpin"></span>어제 처음 블루밍과 함께한 친구</p>
+            <button class="btn" data-toggle="modal" data-target="#myModal">더 알아보기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4><span class="glyphicon glyphicon-user"></span>#about me</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+				 <body>
+		    <div class="slider">
+		      <span id="slide-1"></span>
+		      <span id="slide-2"></span>
+		      <span id="slide-3"></span>
+		      <div class="image-container">
+		        <img src="./img/슬기1.jpg" class="slide_img" />
+		        <img src="./img/슬기1.jpg" class="slide_img" />
+		        <img src="./img/슬기1.jpg" class="slide_img" />
+		      </div>
+		      <div class="buttons">
+		        <a href="#slide-1"></a>
+		        <a href="#slide-2"></a>
+		        <a href="#slide-3"></a>
+		      </div>
+		    </div>
+		  </body>
+		</html>		
+                <a href="/demo2/message/messageWrite.jsp" onClick="window.open(this.href, '', 'width=300, height=230'); return false;">
+                <button type="submit" class="btn btn-block">쪽지보내기
+                  <span class="glyphicon glyphicon-home"></span>
+                </button></a>
+                
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <p>Need <a href="#">help?</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

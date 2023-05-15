@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="File">
+	
+	<insert id="insertFile" parameterType="FileVO">
+	
+	
+		<selectKey keyProperty="fileNo" resultType="long" order="BEFORE">
+			select file_seq.nextval from dual		
+		</selectKey>
+	
+		insert into MEMFILE
+		(FILE_NO,
+		FILE_DATE,
+		FILE_USE) values (
+		#{fileNo}
+		,sysdate
+		,'Y')
+	
+	
+	</insert>
+	
+	<insert id="insertFileDetail" >
+	
+		insert into FILE_DETAIL
+		(
+		FILE_NO
+		,FILE_SN
+		,FILE_STRE
+		,FILE_NM
+		,FILE_OGNM
+		,FILE_EXT
+		,FILE_CN
+		,FILE_SIZE
+		,MEM_ID
+		) values (
+		 #{fileNo}
+		 ,(select nvl(max(file_sn), 0)+1
+				from file_detail
+				where file_no = #{fileNo})
+		 
+		 ,#{fileStre}
+		 ,#{fileNm}
+		 ,#{fileOgnm}
+		 ,#{fileExt}
+		 ,#{fileCn}
+		  ,#{fileSize}
+		  ,#{memId}
+		)
+	
+	</insert>
+	
+	
+	
+	
+	<select id="getFileList" resultType="FileVO">
+		select * from file_detail
+		where mem_id = #{memId}
+	</select>
+	
+	
+	
+	<select id="getAtchFileList" resultType="FileVO">
+		select * from file_detail
+		where file_no = #{fileNo}
+	</select>
+	
+	
+	<select id="getFileDetail" resultType="FileVO">
+	select * from file_detail
+		where file_no = #{fileNo}
+			and file_sn = #{fileSn}
+	</select>
+	
+	
+	<update id="setProfile" parameterType="FileVO">
+	update file_detail set file_pro = 'Y'
+					  
+	where file_sn = 1
+	
+	</update>
+	
+	
+	<select id="getProfile" resultType="FileVO" parameterType="String">
+	select * from file_detail
+		where mem_id = #{memId}
+		and file_pro = 'Y'
+	</select>
+	
+	<delete id="deleteFileList">
+	delete from FILE_DETAIL
+		where mem_id = #{memId}
+	</delete>
+	
+	
+	
+	
+	
+</mapper>

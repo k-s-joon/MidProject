@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="freecom">
+
+
+<resultMap type="FComVO" id="freecomMap">
+	<result column = "FCOM_NO" property="fComNo"/>
+	<result column = "FCOM_CON" property="fComCon"/>
+	<result column = "FCOM_NICK" property="fComNick"/>
+	<result column = "F_NO" property="fNo"/>
+	<result column = "MEM_ID" property="memId"/>
+</resultMap>
+
+<select id="selectAllFreeCom" resultType="FComVO">
+ select * from fcom
+ where f_no = #{fNo}
+</select>
+
+<select id = "getFreeCom" parameterType="int" resultMap ="freecomMap">
+select * from fcom
+where f_no = #{fNo}
+</select>
+
+<select id = "getFreeComList" parameterType="int" resultMap="freecomMap">
+select * from fcom
+where f_no = #{fNo}
+</select>
+
+
+
+
+
+</mapper>

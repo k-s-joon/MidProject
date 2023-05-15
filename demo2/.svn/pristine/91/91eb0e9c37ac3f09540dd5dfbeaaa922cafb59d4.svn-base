@@ -1,0 +1,118 @@
+<%@page import="message.vo.MessageVO"%>
+<%@page import="java.util.List"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<%
+   List<MessageVO> msgList = 
+   (List<MessageVO>) request.getAttribute("msgList");
+
+    String loginCode = session.getAttribute("loginCode") == null ?
+           "" : (String)session.getAttribute("loginCode");
+//    session.removeAttribute("msg");
+ 	String memNick = session.getAttribute("memNick") == null ?
+ 			 "" : (String)session.getAttribute("memNick");
+ 	String receiverNick = session.getAttribute("receiverNick") == null ?
+			 "" : (String)session.getAttribute("receiverNick");
+// 	session.removeAttribute("msg");
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<<<<<<< .mine
+   <div class="container">
+      <div class="row">
+      <form method="post" action="./write.do">
+         <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+            <thead>
+               <tr>
+                  <th colspan="2" style="backgrond-color: #eeeeee; text-align: center;">쪽지보내기</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>발신자: <%=loginCode %></td>
+               </tr>
+               <tr>
+                  <td><input type="text" class="form-control" placeholder="받는사람" name="receiverId" required></td>
+               </tr>
+               <tr>
+                  <td>
+                  <textarea class="form-control" placeholder="쪽지내용" name="msgCon" maxlength="1024" style="height: 80px;" required></textarea>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+         <button class="btn" value="쪽지작성하기" onclick="return confirm('쪽지를 보낼까요??')">쪽지보내기</button>
+      </form>
+      </div>
+   </div>
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+   <script src="js/bototstrap.js"></script>
+
+	<div class="container">
+		<div class="row">
+		<form method="post" action="./write.do">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<thead>
+					<tr>
+						<th colspan="2" style="backgrond-color: #eeeeee; text-align: center;">쪽지보내기</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>발신자: <%=loginCode %></td>
+					</tr>
+					<tr>
+						<td><input type="text" class="form-control" placeholder="받는사람" name="receiverId" required></td>
+					</tr>
+					<tr>
+						<td>
+						<textarea class="form-control" placeholder="쪽지내용" name="msgCon" maxlength="1024" style="height: 80px;" required></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button class="btn" value="쪽지작성하기" onclick="return confirm('쪽지를 보낼까요??')">쪽지보내기</button>
+		</form>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="js/bototstrap.js"></script>
+
+	<div class="container">
+		<div class="row">
+		<form method="post" action="./write.do">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<thead>
+					<tr>
+						<th colspan="2" style="backgrond-color: #eeeeee; text-align: center;">쪽지보내기</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>발신자: <%=memNick %></td>
+					</tr>
+					<tr>
+ 						<td><input type="text" class="form-control" placeholder="받는사람" name="receiverNick" required></td>					</tr>
+					<tr>
+						<td>
+						<textarea class="form-control" placeholder="쪽지내용" name="msgCon" maxlength="1024" style="height: 80px;" required></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button class="btn" value="쪽지작성하기" onclick="return confirm('쪽지를 보낼까요??')">쪽지보내기</button>
+		</form>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="js/bototstrap.js"></script>
+>>>>>>> .r302379
+</body>
+</html>

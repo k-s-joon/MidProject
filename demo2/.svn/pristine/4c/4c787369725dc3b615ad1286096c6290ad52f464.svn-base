@@ -1,0 +1,64 @@
+package free.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import free.service.FreeComServiceImpl;
+import free.service.FreeServiceImpl;
+import free.service.IFreeComService;
+import free.service.IFreeService;
+import free.vo.FComVO;
+import free.vo.FreeVO;
+
+@WebServlet("/free/detail.do")
+public class DetailFreeController extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		int fNo = Integer.parseInt(req.getParameter("fNo"));
+		
+		IFreeService freeService = FreeServiceImpl.getInstance();
+		FreeVO fv = freeService.getFree(fNo);
+		IFreeComService freecomService = FreeComServiceImpl.getinstance();
+		List<FComVO> fcv =  freecomService.getfreecomList(fNo);
+		
+		req.setAttribute("fv", fv);
+		req.setAttribute("fNo", fNo);
+		req.setAttribute("fcv", fcv);		
+		
+		req.getRequestDispatcher("/f_boa/f_view.jsp").forward(req, resp);
+
+		
+		int fComNo = Integer.parseInt(req.getParameter("fComNo")); 
+		String fComCon = req.getParameter("fComCon");
+		String fComNick = req.getParameter("fComNick");
+		String memId = req.getParameter("memId");
+		
+		IFreeComService freecComService = FreeComServiceImpl.getinstance();
+				
+		FComVO fcv1 = new FComVO();
+		fcv1.setfComNo(fComNo);
+		fcv1.setfComCon(fComCon);
+		fcv1.setfComNick(fComNick);
+		fcv1.setfComNo(fComNo);
+		fcv1.setMemId(memId);
+		
+		int cnt = freecomService.registFreeCom(fcv1);
+		
+		resp.sendRedirect(req.getContextPath()+"/free/detail.do");
+		
+	}
+		
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
+	}	
+}

@@ -1,0 +1,11 @@
+package chat.dao;
+
+import java.util.List;
+
+import chat.vo.ChatVO;
+
+public interface IChatDao {
+	public int insertChat(ChatVO cv);
+	
+	public List<ChatVO> selectChat(ChatVO cv);
+}

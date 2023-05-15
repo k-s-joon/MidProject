@@ -1,0 +1,121 @@
+<%@page import="member.service.MemberServiceImpl"%>
+<%@page import="member.service.IMemberService"%>
+<%@page import="member.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+   	<%
+   		String pwCheckCode = (String)request.getAttribute("pwCheckCode");
+   		System.out.print(pwCheckCode);
+   		if(pwCheckCode!=null){
+   			if(pwCheckCode.equals("no")){
+   			%>
+   			<script>
+			alert('비밀번호가 맞지않습니다');
+			</script>	
+   			<% 
+   				
+   			}  				  			
+   		}
+   	%>
+    
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!---<title> Responsive Our Team Section | CodingLab </title>---->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidemain.css">
+    <jsp:include page="/sidemain.jsp"></jsp:include>
+    <jsp:include page="/topbar.jsp"></jsp:include>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+     
+     <style>
+    
+     @font-face { /* 애플산돌고딕 폰트 적용 */
+  font-family:"jua";
+  src: url("css/fonts/BMJUA_ttf.ttf") format("truetype");
+  font-weight: normal;
+	} /* 이후 "SDGothic"으로 폰트 적용 가능 */
+     
+     *{
+     font-family: jua;
+     }
+     
+     </style>
+     
+     	
+   </head>
+<body>
+
+
+
+   <table style="width: 60%">
+   <tr>
+   <td>
+  <div class="mb-3">
+  
+  <label for="exampleFormControlInput1" class="form-label">비밀번호를 입력하세요</label>
+  <input class="form-control" type="password" id="exampleFormControlInput1" placeholder="현재비밀번호" value="" name="memPw">
+</div>
+	</td>
+	</tr>
+	
+
+<tr>
+  <td style="padding-top: 50px;">
+	<button class="btn btn-primary" onclick="f_check()" >삭제하기</button>
+          
+  </td>
+</tr>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script>
+	
+	function f_check() {
+		$.ajax({
+			type: 'post', //method
+			url: 'MypageDelete',
+			//자바스크립트 ajax사용시 post메소드로 data를 넘길 때는 content-type설정이 꼭 필요 => 안해주면 plain/text로 인식
+			//jQuery ajax사용시 content-type이 default => urlencoded형식으로 지정해줌 => 자동으로 형태 변형해줌(like mem_id=a0011&...)
+			data: {memPw : $("#exampleFormControlInput1").val()},
+			dataType: "JSON",
+			success:function(result){
+				console.log(result.pwCheckCode);
+				
+			
+				if(result.pwCheckCode=="yes"){
+					
+		            if (confirm("정말로 삭제하시겠습니까?")) {
+		                // 확인 버튼 클릭 시 동작
+		                location.href = "MypageDelete2";
+		            } else {
+		                // 취소 버튼 클릭 시 동작
+		                alert("동작을 취소했습니다.");
+		            }
+		        
+				}else{
+					alert('비밀번호가 틀립니다')
+				}
+				
+				
+			},
+			error:function(xhr){
+				alert("상태:" + xhr.status);
+			}
+		});
+	}
+	
+	
+	
+	
+
+	</script>
+ </table>
+ 
+</body>
+</html>

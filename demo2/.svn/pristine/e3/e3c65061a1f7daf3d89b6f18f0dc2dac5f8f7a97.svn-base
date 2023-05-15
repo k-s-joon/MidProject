@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ask">
+   <!-- 이 영역에 sql문에 맞는 태그를 사용하여 SQL문을 기술한다. 사용할수 있는 기본적인 태그들 <select> ~~~ </select> 
+      <insert> ~~~ </insert> <update> ~~~ </update> <delete> ~~~ </delete> 위 태그에서 
+      사용되는 주요 속성들 1) id : 해당 태그를 호출할 때 namespace명과 연결하여 사용하는 아이디 2) parameterType 
+      : SQL문에 사용될 데이터가 들어있는 객체타입을 지정함. (보통 VO클래스, 자바의 자료형이름 등이 사용된다.) (typeAlias로 
+      지정한 alias명을 사용할 수 있다.) 3) resultType : select문을 실행한 결과를 담을 객체타입을 지정한다. (보통 
+      VO클래스, 자바의 자료형이름 등이 사용된다.) (typeAlias로 지정한 alias명을 사용할 수 있다.) 4) resultMap 
+      : 결과 레코드 컬럼명과 VO객체의 속성명이 다를 경우에 적절한 매핑을 위해 사용한다. -->
+<resultMap type="AskVO" id="askMap">
+   <result column = "AS_NO" property="askNo"/>
+   <result column = "AS_TITLE" property="askTitle"/>
+   <result column = "AS_CON" property="askCon"/>
+   <result column = "AS_DATE" property="askDate"/>
+   <result column = "AS_UPDATE" property="askUpdate"/>
+   <result column = "AS_NICK" property="askNick"/>
+   <result column = "MEM_ID" property="memId"/>
+</resultMap>
+
+<insert id = "insertAsk" parameterType="ask.vo.AskVO">
+insert into ASK
+(AS_NO, AS_TITLE, AS_CON, AS_DATE, AS_NICK, MEM_ID)
+values (ASK_SEQ.nextval, #{askTitle}, #{askCon}, sysdate, #{askNick}, #{memId})
+</insert>
+   
+<update id = "updateAsk"  parameterType="ask.vo.AskVO">
+update ASK
+set AS_TITLE = #{askTitle}, 
+   AS_CON = #{askCon},
+   AS_DATE = sysdate
+   where AS_NO = #{askNo} 
+</update>   
+
+<delete id = "deleteAsk" parameterType="int" >
+delete from ASK
+where AS_NO = #{askNo}
+</delete>
+
+<delete id = "deleteNotice" parameterType="int" >
+delete from NOTICE
+where N_NO = #{noticeNo}
+</delete>
+
+<select id="selectAllAsk" resultMap="askMap">
+   select * from ASK ORDER BY AS_NO DESC
+</select>
+
+<!-- site 프로젝트에서 복분 -->
+<select id="countList" resultType="int">
+   SELECT COUNT(*) FROM ASK
+</select>
+
+<select id="askList" parameterType="map" resultMap="askMap">
+   select A.*from(
+      select AS_NO AS RNUM, B.* from(
+         select * from ASK
+         order by AS_NO DESC
+      )B
+      <![CDATA[
+      where ROWNUM <= #{end}
+   )A
+   where A.RNUM >= #{start}
+   ]]>
+</select>
+
+<select id="getAsk" parameterType="int" resultMap="askMap">
+  select * from ASK
+  where AS_NO = #{askNo}   
+</select>
+
+<select id="getMemId" parameterType="String" resultType="ask.vo.AskVO">
+	select * from ASK
+	where mem_id = #{memId}
+</select>
+
+<select id="searchAsk" resultMap="askMap">
+	
+	select *
+	from ASK
+	where 1=1
+	<if test="askNo != null and askNo != ''">
+		and AS_NO = #{askNo}
+	</if>
+	<if test="askTitle != null and askTitle != ''">
+		and AS_TITLE = #{askTitle}
+	</if>
+	<if test="askCon != null and askCon != ''">
+		and AS_CON = #{askCon}
+	</if>
+	<if test="askDate != null and askDate != ''">
+		and AS_DATE = #{askDate} 
+	</if>
+			
+	</select>
+</mapper>
